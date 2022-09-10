@@ -1,0 +1,48 @@
+<section class="header">
+  <div class="header__navigation container">
+    <nav class="header__navigation-logo">
+      <a class="navigation__logo-link" href="">
+        <svg class="navigation__logo-icon">
+          <use href="./images/header/sprite.svg#icon-header-film"></use>
+        </svg>
+
+        <span class="navigation__logo-text">Kino</span>
+      </a>
+    </nav>
+
+    <nav class="header__navigation-list">
+      <div class="navigation__list-container">
+        <h3 class="navigation__list-text text__selected">home</h3>
+        <h3 class="navigation__list-text">my library</h3>
+      </div>
+    </nav>
+  </div>
+
+  <div class="header__search container">
+    <form class="header__search-form">
+      <input
+        class="search__form-input"
+        placeholder="Поиск фильмов"
+        type="text"
+      />
+
+      <button class="search__form-btn">
+        <svg class="search__form-icon">
+          <use href="./images/header/sprite.svg#icon-header-search"></use>
+        </svg>
+      </button>
+    </form>
+
+    <p class="header__search-error">
+      Search result not successful. Enter the correct movie name and
+    </p>
+  </div>
+
+  <div class="header__library">
+    <button class="header__library-watched library__btn selected__btn">
+      watched
+    </button>
+
+    <button class="header__library-queue library__btn">queue</button>
+  </div>
+</section>
