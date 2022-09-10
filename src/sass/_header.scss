@@ -11,9 +11,18 @@
   height: 230px;
 
   background-image: url('../images/header/background/header-mobile.jpg');
+
   background-repeat: no-repeat;
   background-position: center top;
   background-size: 100% 230px;
+
+  @media (min-width: 400px) {
+    background-image: url('../images/header/background/header-tablet.jpg');
+  }
+
+  @media (min-width: 1024px) {
+    background-image: url('../images/header/background/header-desktop.jpg');
+  }
 }
 
 // Navigation Logo
@@ -27,8 +36,24 @@
 }
 
 .navigation__logo-icon {
+  margin-right: 10px;
+
   width: 24px;
   height: 24px;
+}
+
+.navigation__logo-text {
+  display: none;
+
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+
+  color: $color-text;
+
+  @media (min-width: 768px) {
+    display: inline;
+  }
 }
 
 // Navigation List
@@ -59,11 +84,20 @@
 
 .header__search {
   margin-top: 40px;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  width: 100%;
+  max-width: 336px;
 }
 
 .header__search-form {
   display: flex;
   justify-content: space-between;
+
+  width: 100%;
 
   border-bottom: 0.5px solid $color-borderSearch;
 }
@@ -93,7 +127,7 @@
 
   font-weight: 400;
   font-size: 14px;
-  line-height: 16px;
+  line-height: 20px;
   text-align: center;
 
   color: $color-error;
