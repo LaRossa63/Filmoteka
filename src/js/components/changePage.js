@@ -4,7 +4,7 @@ import {
   hidePageHome,
   showPageLibrary,
   hidePageLibrary,
-} from './controlPage';
+} from '../utils/controlPage';
 
 const clearActiveSelectedText = () => {
   document.querySelector('.text__selected').classList.remove('text__selected');

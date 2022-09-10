@@ -3,7 +3,7 @@ import {
   changePageOnHome,
   changePageOnLibrary,
   changeActiveBtn,
-} from './utils/changePage';
+} from './components/changePage';
 
 export const handlePageOpenHome = event => {
   changeActiveText(event);
