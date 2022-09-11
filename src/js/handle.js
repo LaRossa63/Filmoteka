@@ -1,3 +1,5 @@
+import { ref } from './refElement';
+import { fillingCars } from './components/fillingCards';
 import {
   changeActiveText,
   changePageOnHome,
@@ -23,4 +25,12 @@ export const handleClickWatch = event => {
 
 export const handleClickQueue = event => {
   changeActiveBtn(event);
+};
+
+export const handleFormSubmit = event => {
+  event.preventDefault();
+
+  const searchText = ref.inputForm.value.toLowerCase().replaceAll(' ', '');
+
+  fillingCars(searchText);
 };
