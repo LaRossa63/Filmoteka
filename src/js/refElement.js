@@ -14,4 +14,6 @@ export const ref = {
   libraryQueueBtn: document.querySelector('.header__library-queue'),
 
   outputCards: document.querySelector('.cards__list'),
+
+  modalWindow: document.querySelector('.modal'),
 };

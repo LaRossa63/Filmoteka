@@ -51,4 +51,10 @@ export class MovieService {
       // Конец загрузки
     }
   }
+
+  async getMovieDetailsByID(id) {
+    const result = await axios.get(`/?apikey=${this._key}&i=${id}`);
+
+    return result.data;
+  }
 }
