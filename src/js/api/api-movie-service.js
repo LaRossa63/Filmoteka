@@ -1,6 +1,9 @@
 import axios from 'axios';
+import { Spinner } from '../utils/spinner';
 
 axios.defaults.baseURL = 'http://www.omdbapi.com';
+
+const spinner = new Spinner();
 
 export class MovieService {
   constructor() {
@@ -38,23 +41,30 @@ export class MovieService {
 
   async getMovie(searchText) {
     try {
-      // Начало загрузки https://omdbapi.com/?s=hit&page=1&apikey=fc1fef96
+      spinner.start();
 
       const result = await axios.get(
-        `/?i=${this._IMDb}&apikey=${this._key}&s=${searchText}&page=${this._page}&limit=50`
+        `/?i=${this._IMDb}&apikey=${this._key}&s=${searchText}&page=${this._page}`
       );
 
       return result.data;
     } catch (err) {
       throw Error(err);
     } finally {
-      // Конец загрузки
+      spinner.stop();
     }
   }
 
   async getMovieDetailsByID(id) {
-    const result = await axios.get(`/?apikey=${this._key}&i=${id}`);
+    try {
+      spinner.start();
 
-    return result.data;
+      const result = await axios.get(`/?apikey=${this._key}&i=${id}`);
+      return result.data;
+    } catch (err) {
+      throw Error(err);
+    } finally {
+      spinner.stop();
+    }
   }
 }
