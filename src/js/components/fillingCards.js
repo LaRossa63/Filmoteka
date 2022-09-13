@@ -8,7 +8,7 @@ const setTotalPage = request => {
   movieService.totalPage = Math.ceil(totalResult / movieService.countCardsPage);
 };
 
-const outputCards = cards => {
+export const generateCardsToHome = cards => {
   const li = cards.map(card => {
     return `
     <li class="cards__list-li">
@@ -29,10 +29,10 @@ const outputCards = cards => {
     `;
   });
 
-  ref.outputCards.innerHTML = li.join('');
+  ref.outputCardsHome.innerHTML = li.join('');
 };
 
-const outputErrorSearch = error => {
+const drawErrorSearch = error => {
   let message = '';
 
   switch (error.toLowerCase()) {
@@ -52,92 +52,72 @@ const outputErrorSearch = error => {
   ref.searchError.innerHTML = message;
 };
 
-const checkValidAnswer = answer => {
+const isValidAnswer = answer => {
   ref.searchError.innerHTML = '';
 
-  if (answer.Response === 'False') {
-    return false;
-  }
-
-  return true;
+  return answer.Response !== 'False';
 };
 
-export const fillingCars = async searchText => {
+export const getMoviesByText = async searchText => {
   const answer = await movieService.getMovie(searchText);
 
-  if (!checkValidAnswer(answer)) {
-    outputErrorSearch(answer.Error);
+  if (!isValidAnswer(answer)) {
+    drawErrorSearch(answer.Error);
     return;
   }
 
   setTotalPage(answer);
 
-  outputCards(answer.Search);
+  return answer;
 };
 
-export const checkValidClickCard = element => {
-  if (element.closest('.list__li-img')) {
-    return true;
-  }
-
-  return false;
+export const isValidClickCard = element => {
+  return element.closest('.list__li-img');
 };
 
-export const setContentForModalWindow = async card => {
+export const setContentToModalWindow = async card => {
   const details = await movieService.getMovieDetailsByID(card.dataset.id);
 
-  ref.modalWindow.innerHTML = `
-  <div class="modal__container">
-    <div class="modal__content">
-      <div class="content__wrap-img">
+  const arrayLists = ['imdbRating', 'Language', 'Title', 'Genre'];
+
+  const outputList = arrayLists.map(element => {
+    return `
+    <li class="list__li">
+      <p class="list__li-title">${element}</p>
+      <p class="list__li-subtitle subtitle__selected">${details[element]}</p>
+    </li>`;
+  });
+
+  ref.modalWindow.dataset.id = details.imdbID;
+
+  ref.modalWindowImg.src = details.Poster;
+  ref.modalWindowImg.alt = details.Title;
+
+  ref.modalWindowTitle.innerHTML = details.Title;
+  ref.modalWindowList.innerHTML = outputList.join('');
+  ref.modalWindowAboutText.innerHTML = details.Plot;
+};
+
+export const generateCardsToLibrary = cards => {
+  console.log(cards);
+  const li = cards.map(card => {
+    return `
+    <li class="cards__list-li">
+      <a class="list__li-link" href="">
         <img
-          class="wrap__img-image"
-          src="${details.Poster}"
-          alt="123"
+          class="list__li-img"
+          data-id="${card.id}"
+          src="${card.url}"
+          alt="${card.title}"
         />
+      </a>
+
+      <div class="list__li-info">
+        <h3 class="li__info-name">${card.title}</h3>
       </div>
+    </li>
+    `;
+  });
 
-      <div class="content__wrap-information">
-        <h3 class="wrap__information-title">${details.Title}</h3>
-
-        <ul class="wrap__information-list">
-          <li class="list__li">
-            <p class="list__li-title">Rating</p>
-            <p class="list__li-subtitle subtitle__selected">${details.imdbRating}</p>
-          </li>
-
-          <li class="list__li">
-            <p class="list__li-title">Language</p>
-            <p class="list__li-subtitle">${details.Language}</p>
-          </li>
-
-          <li class="list__li">
-            <p class="list__li-title">Original Title</p>
-            <p class="list__li-subtitle">${details.Title}</p>
-          </li>
-
-          <li class="list__li">
-            <p class="list__li-title">Genre</p>
-            <p class="list__li-subtitle">${details.Genre}</p>
-          </li>
-        </ul>
-
-        <p class="wrap__information-about">About</p>
-
-        <p class="wrap__information-text">${details.Plot}</p>
-
-        <div class="wrap__information-container">
-          <button class="information__container-btn btn__selected">
-            add to watched
-          </button>
-
-          <button class="information__container-btn">add to queue</button>
-        </div>
-      </div>
-    </div>
-
-    <svg class="modal__content-close">
-      <use href="../../images/header/sprite.svg#icon-modal-close"></use>
-    </svg>
-  </div>`;
+  ref.outputCardsLibrary.innerHTML = li.join('');
 };

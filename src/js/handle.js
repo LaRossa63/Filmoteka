@@ -1,66 +1,91 @@
-import { ref } from './refElement';
+import { ref, WATCHED } from './refElement';
 import {
-  fillingCars,
-  checkValidClickCard,
-  setContentForModalWindow,
+  isValidClickCard,
+  setContentToModalWindow,
+  getMoviesByText,
+  generateCardsToHome,
 } from './components/fillingCards';
-
 import {
   hideModalWindow,
   showModalWindow,
-  addListener,
-  clearListener,
+  addListenerToModalWindow as addListenerFromModalWindow,
+  clearListenerToModalWindow as clearListenerFromModalWindow,
+  chooseModalActiveBtn,
 } from './components/modalWindow';
-
 import {
-  changeActiveText,
-  changePageOnHome,
-  changePageOnLibrary,
+  selectActiveNavBtn,
+  chooseHomePage as changeToHomePage,
+  chooseLibraryPage as changeToLibraryPage,
   changeActiveBtn,
 } from './components/changePage';
+import { addMovieToLocalStorage } from './utils/localStorage';
 
 export const handlePageOpenHome = event => {
-  changeActiveText(event);
+  selectActiveNavBtn(event);
 
-  changePageOnHome();
+  changeToHomePage();
 };
 
 export const handlePageOpenLibrary = event => {
-  changeActiveText(event);
+  selectActiveNavBtn(event);
 
-  changePageOnLibrary();
+  changeToLibraryPage();
 };
 
-export const handleClickWatch = event => {
+export const handleClickWatchedBtn = event => {
   changeActiveBtn(event);
 };
 
-export const handleClickQueue = event => {
+export const handleClickQueueBtn = event => {
   changeActiveBtn(event);
 };
 
-export const handleFormSubmit = event => {
+export const handleFormSubmit = async event => {
   event.preventDefault();
 
-  const searchText = ref.inputForm.value.toLowerCase().replaceAll(' ', '');
+  const searchText = ref.inputForm.value.toLowerCase().trim();
 
-  fillingCars(searchText);
+  const movies = await getMoviesByText(searchText);
+
+  if (!movies) {
+    return;
+  }
+
+  generateCardsToHome(movies.Search);
 };
 
 export const handleClickCards = async event => {
-  if (!checkValidClickCard(event.target)) {
+  if (!isValidClickCard(event.target)) {
     return;
   }
 
   event.preventDefault();
 
-  await setContentForModalWindow(event.target);
+  await setContentToModalWindow(event.target);
 
-  addListener();
+  addListenerFromModalWindow();
   showModalWindow();
 };
 
 export const handleCloseModalWindow = () => {
   hideModalWindow();
-  clearListener();
+  clearListenerFromModalWindow();
+};
+
+export const handleClickAddToWatched = event => {
+  chooseModalActiveBtn(event);
+
+  const thisMovies = {
+    id: ref.modalWindow.dataset.id,
+    title: ref.modalWindowTitle.textContent,
+    url: ref.modalWindowImg.src,
+  };
+
+  addMovieToLocalStorage(WATCHED, thisMovies);
+};
+
+export const handleClickAddToQueue = event => {
+  chooseModalActiveBtn(event);
+
+  console.log('Queue');
 };

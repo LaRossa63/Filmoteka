@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Spinner } from '../utils/spinner';
+import { Spinner } from '../components/spinner';
 
 axios.defaults.baseURL = 'http://www.omdbapi.com';
 

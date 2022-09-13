@@ -2,8 +2,8 @@ import { ref } from './refElement';
 import {
   handlePageOpenHome,
   handlePageOpenLibrary,
-  handleClickWatch,
-  handleClickQueue,
+  handleClickWatchedBtn,
+  handleClickQueueBtn,
   handleFormSubmit,
   handleClickCards,
 } from './handle';
@@ -11,9 +11,10 @@ import {
 ref.btnHome.addEventListener('click', handlePageOpenHome);
 ref.btnLibrary.addEventListener('click', handlePageOpenLibrary);
 
-ref.libraryWatchBtn.addEventListener('click', handleClickWatch);
-ref.libraryQueueBtn.addEventListener('click', handleClickQueue);
+ref.libraryWatchBtn.addEventListener('click', handleClickWatchedBtn);
+ref.libraryQueueBtn.addEventListener('click', handleClickQueueBtn);
 
 ref.searchForm.addEventListener('submit', handleFormSubmit);
 
-ref.outputCards.addEventListener('click', handleClickCards);
+ref.outputCardsHome.addEventListener('click', handleClickCards);
+ref.outputCardsLibrary.addEventListener('click', handleClickCards);

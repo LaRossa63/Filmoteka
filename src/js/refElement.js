@@ -13,7 +13,19 @@ export const ref = {
   libraryWatchBtn: document.querySelector('.header__library-watched'),
   libraryQueueBtn: document.querySelector('.header__library-queue'),
 
-  outputCards: document.querySelector('.cards__list'),
+  outputCardsHome: document.querySelector('.cards__list-home'),
+  outputCardsLibrary: document.querySelector('.cards__list-library'),
 
   modalWindow: document.querySelector('.modal'),
+  modalWindowClose: document.querySelector('.modal__content-close'),
+
+  modalWindowImg: document.querySelector('.wrap__img-image'),
+  modalWindowTitle: document.querySelector('.wrap__information-title'),
+  modalWindowList: document.querySelector('.wrap__information-list'),
+  modalWindowAboutText: document.querySelector('.wrap__information-text'),
+
+  modalWindowWatchBtn: document.querySelector('.btn-watched'),
+  modalWindowQueueBtn: document.querySelector('.btn-queue'),
 };
+
+export const WATCHED = 'watched';

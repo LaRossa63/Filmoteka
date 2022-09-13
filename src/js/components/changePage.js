@@ -1,41 +1,54 @@
-import { ref } from '../refElement';
+import { ref, WATCHED } from '../refElement';
+import { generateCardsToLibrary } from './fillingCards';
 import {
-  showPageHome,
-  hidePageHome,
-  showPageLibrary,
-  hidePageLibrary,
+  showPageHomeHeader,
+  hidePageHomeHeader,
+  showPageLibraryHeader,
+  hidePageLibraryHeader,
+  showPageHomeContent,
+  hidePageHomeContent,
+  showPageLibraryContent,
+  hidePageLibraryContent,
 } from '../utils/controlPage';
+import { getMovieInLocalStorage } from '../utils/localStorage';
 
-const clearActiveSelectedText = () => {
+const unselectActiveNavBtn = () => {
   document.querySelector('.text__selected').classList.remove('text__selected');
 };
 
-const clearActiveSelectedBtn = () => {
+const unselectActiveListBtn = () => {
   document.querySelector('.selected__btn').classList.remove('selected__btn');
 };
 
-export const changeActiveText = event => {
-  clearActiveSelectedText();
+export const selectActiveNavBtn = event => {
+  unselectActiveNavBtn();
 
   event.target.classList.add('text__selected');
 };
 
-export const changePageOnHome = () => {
+export const chooseHomePage = () => {
   ref.header.className = 'header home-page';
 
-  hidePageLibrary();
-  showPageHome();
+  hidePageLibraryHeader();
+  showPageHomeHeader();
+
+  showPageHomeContent();
+  hidePageLibraryContent();
 };
 
-export const changePageOnLibrary = () => {
+export const chooseLibraryPage = () => {
   ref.header.className = 'header library-page';
 
-  hidePageHome();
-  showPageLibrary();
+  hidePageHomeHeader();
+  showPageLibraryHeader();
+
+  generateCardsToLibrary(getMovieInLocalStorage(WATCHED));
+  showPageLibraryContent();
+  hidePageHomeContent();
 };
 
 export const changeActiveBtn = event => {
-  clearActiveSelectedBtn();
+  unselectActiveListBtn();
 
   event.target.classList.add('selected__btn');
 };
