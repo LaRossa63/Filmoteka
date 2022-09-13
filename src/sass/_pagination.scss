@@ -1,0 +1,41 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 40px;
+}
+
+.pagination__arrow {
+  width: 40px;
+  height: 40px;
+
+  background: #f7f7f7;
+  border-radius: 5px;
+}
+
+.arrow-left {
+  margin-right: 15px;
+}
+
+.arrow-right {
+  margin-left: 15px;
+}
+
+.pagination__list {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.pagination__list-li {
+  font-weight: 500;
+  line-height: 20px;
+
+  padding: 10px;
+}
+
+.pagination__li-selected {
+  background: #ff6b08;
+  border-radius: 5px;
+}
