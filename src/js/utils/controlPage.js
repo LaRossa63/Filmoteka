@@ -31,3 +31,11 @@ export const showPageLibraryContent = () => {
 export const hidePageLibraryContent = () => {
   ref.outputCardsLibrary.classList.add('visually-hidden');
 };
+
+export const showPaginationHome = () => {
+  ref.pagination.classList.remove('visually-hidden');
+};
+
+export const hidePaginationHome = () => {
+  ref.pagination.classList.add('visually-hidden');
+};

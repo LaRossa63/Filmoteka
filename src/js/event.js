@@ -6,6 +6,8 @@ import {
   handleClickQueueBtn,
   handleFormSubmit,
   handleClickCards,
+  handleClickPaginationArrowLeft,
+  handleClickPaginationArrowRight,
 } from './handle';
 
 ref.btnHome.addEventListener('click', handlePageOpenHome);
@@ -18,3 +20,13 @@ ref.searchForm.addEventListener('submit', handleFormSubmit);
 
 ref.outputCardsHome.addEventListener('click', handleClickCards);
 ref.outputCardsLibrary.addEventListener('click', handleClickCards);
+
+ref.paginationArrowLeft.addEventListener(
+  'click',
+  handleClickPaginationArrowLeft
+);
+
+ref.paginationArrowRight.addEventListener(
+  'click',
+  handleClickPaginationArrowRight
+);

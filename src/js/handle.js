@@ -1,5 +1,6 @@
 import { ref, WATCHED } from './refElement';
 import {
+  movieService,
   isValidClickCard,
   setContentToModalWindow,
   getMoviesByText,
@@ -19,9 +20,15 @@ import {
   changeActiveBtn,
 } from './components/changePage';
 import { addMovieToLocalStorage } from './utils/localStorage';
+import { selectPaginationActivePage } from './components/pagination';
+import { hidePaginationHome, showPaginationHome } from './utils/controlPage';
 
 export const handlePageOpenHome = event => {
   selectActiveNavBtn(event);
+
+  if (ref.outputCardsHome.children.length !== 0) {
+    showPaginationHome();
+  }
 
   changeToHomePage();
 };
@@ -29,6 +36,7 @@ export const handlePageOpenHome = event => {
 export const handlePageOpenLibrary = event => {
   selectActiveNavBtn(event);
 
+  hidePaginationHome();
   changeToLibraryPage();
 };
 
@@ -88,4 +96,42 @@ export const handleClickAddToQueue = event => {
   chooseModalActiveBtn(event);
 
   console.log('Queue');
+};
+
+export const handleClickPaginationArrowLeft = async () => {
+  movieService.nextPageLeft();
+
+  const movies = await getMoviesByText();
+
+  if (!movies) {
+    return;
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+
+  generateCardsToHome(movies.Search);
+
+  selectPaginationActivePage(movieService.page);
+};
+
+export const handleClickPaginationArrowRight = async () => {
+  movieService.nextPageRight();
+
+  const movies = await getMoviesByText();
+
+  if (!movies) {
+    return;
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+
+  generateCardsToHome(movies.Search);
+
+  selectPaginationActivePage(movieService.page);
 };

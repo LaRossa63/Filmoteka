@@ -10,9 +10,26 @@ export class MovieService {
     this._key = '49e5b904';
     this._IMDb = 'tt3896198';
 
-    this._page = 2;
+    this._page = 1;
     this._countCardsPage = 20;
     this._totalPage = 0;
+    this._lastSearchText = '';
+  }
+
+  nextPageLeft() {
+    if (this._page - 1 === 0) {
+      return;
+    }
+
+    this._page -= 1;
+  }
+
+  nextPageRight() {
+    if (this._page + 1 > this.totalPage) {
+      return;
+    }
+
+    this._page += 1;
   }
 
   get page() {
@@ -39,8 +56,9 @@ export class MovieService {
     this._totalPage = value;
   }
 
-  async getMovie(searchText) {
+  async getMovie(searchText = this._lastSearchText) {
     try {
+      this._lastSearchText = searchText;
       spinner.start();
 
       const result = await axios.get(

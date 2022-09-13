@@ -1,7 +1,9 @@
 import { ref } from '../refElement';
 import { MovieService } from '../api/api-movie-service';
+import { drawPagination } from './pagination';
+import { showPaginationHome } from '../utils/controlPage';
 
-const movieService = new MovieService();
+export const movieService = new MovieService();
 
 const setTotalPage = request => {
   const totalResult = Number(request.totalResults);
@@ -30,6 +32,9 @@ export const generateCardsToHome = cards => {
   });
 
   ref.outputCardsHome.innerHTML = li.join('');
+
+  showPaginationHome();
+  drawPagination(movieService.totalPage, movieService.page);
 };
 
 const drawErrorSearch = error => {
@@ -99,7 +104,6 @@ export const setContentToModalWindow = async card => {
 };
 
 export const generateCardsToLibrary = cards => {
-  console.log(cards);
   const li = cards.map(card => {
     return `
     <li class="cards__list-li">

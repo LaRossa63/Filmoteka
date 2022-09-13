@@ -26,6 +26,11 @@ export const ref = {
 
   modalWindowWatchBtn: document.querySelector('.btn-watched'),
   modalWindowQueueBtn: document.querySelector('.btn-queue'),
+
+  pagination: document.querySelector('.pagination'),
+  paginationList: document.querySelector('.pagination__list'),
+  paginationArrowLeft: document.querySelector('.arrow-left'),
+  paginationArrowRight: document.querySelector('.arrow-right'),
 };
 
 export const WATCHED = 'watched';
